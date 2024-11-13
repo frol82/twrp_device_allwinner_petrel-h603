@@ -1,0 +1,17 @@
+on init
+    insmod /sunxi-ir-rx.ko
+
+    mkdir /extsd
+    mkdir /bootloader
+    exec /sbin/busybox sh /sbin/init_parttion.sh
+
+service console /sbin/sh
+    console
+    disabled
+    user shell
+    group log
+
+on property:sys.uboot_params_clear=1
+    ubootparam disp_rsl "0"
+    ubootparam tv_vdid "0"
+    ubootparam disp_config "0"
